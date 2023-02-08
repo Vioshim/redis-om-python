@@ -405,7 +405,7 @@ async def test_update_query(members, m):
         .all()
     )
     assert len(actual) == 3
-    assert all([m.first_name == "Bobby" for m in actual])
+    assert all(m.first_name == "Bobby" for m in actual)
 
 
 @py_test_mark_asyncio
