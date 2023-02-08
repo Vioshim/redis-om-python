@@ -27,13 +27,15 @@ def main():
     ]
     filepaths = []
     for root, _, filenames in os.walk(Path(__file__).absolute().parent):
-        for filename in filenames:
-            if filename.rpartition(".")[-1] in (
+        filepaths.extend(
+            os.path.join(root, filename)
+            for filename in filenames
+            if filename.rpartition(".")[-1]
+            in (
                 "py",
                 "pyi",
-            ):
-                filepaths.append(os.path.join(root, filename))
-
+            )
+        )
     unasync.unasync_files(filepaths, rules)
 
 

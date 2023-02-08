@@ -30,17 +30,13 @@ def redis():
 
 
 def _delete_test_keys(prefix: str, conn):
-    keys = []
-    for key in conn.scan_iter(f"{prefix}:*"):
-        keys.append(key)
-    if keys:
+    if keys := list(conn.scan_iter(f"{prefix}:*")):
         conn.delete(*keys)
 
 
 @pytest.fixture
 def key_prefix(request, redis):
-    key_prefix = f"{TEST_PREFIX}:{random.random()}"
-    yield key_prefix
+    yield f"{TEST_PREFIX}:{random.random()}"
 
 
 @pytest.fixture(scope="session", autouse=True)

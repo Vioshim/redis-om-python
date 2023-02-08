@@ -29,9 +29,7 @@ def import_submodules(root_module_name: str):
             f"You specified: {root_module_name}"
         )
 
-    for loader, module_name, is_pkg in pkgutil.walk_packages(
-        root_module.__path__, root_module.__name__ + "."  # type: ignore
-    ):
+    for loader, module_name, is_pkg in pkgutil.walk_packages(root_module.__path__, f"{root_module.__name__}."):
         importlib.import_module(module_name)
 
 

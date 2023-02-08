@@ -12,10 +12,9 @@ class TokenEscaper:
     DEFAULT_ESCAPED_CHARS = r"[,.<>{}\[\]\\\"\':;!@#$%^&*()\-+=~\/ ]"
 
     def __init__(self, escape_chars_re: Optional[Pattern] = None):
-        if escape_chars_re:
-            self.escaped_chars_re = escape_chars_re
-        else:
-            self.escaped_chars_re = re.compile(self.DEFAULT_ESCAPED_CHARS)
+        self.escaped_chars_re = escape_chars_re or re.compile(
+            self.DEFAULT_ESCAPED_CHARS
+        )
 
     def escape(self, value: str) -> str:
         def escape_symbol(match):
